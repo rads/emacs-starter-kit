@@ -1,12 +1,5 @@
 ;; Fonts
-(defun menlo (size)
-  (interactive "p")
-  (set-default-font
-   (concat "-unknown-Menlo-normal-normal-normal-*-"
-           (if (stringp size) size
-             (if (= 1 size) "13"
-               (read-from-minibuffer "Size: ")))
-           "-*-*-*-m-0-*-*")))
+(set-default-font "-unknown-Menlo-normal-normal-normal-*-13-*-*-*-m-0-*-*")
 
 ;; Settings
 (setq-default tab-width 2)
