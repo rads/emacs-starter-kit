@@ -1,20 +1,24 @@
 ;; Fonts
-(set-default-font "-unknown-Menlo-normal-normal-normal-*-13-*-*-*-m-0-*-*")
+(setq default-frame-alist '((font . "-unknown-Menlo-normal-normal-normal-*-13-*-*-*-m-0-*-*")))
 
 ;; Settings
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
 (prefer-coding-system 'utf-8)
+(setq-default ispell-program-name "aspell")
+(add-to-list 'exec-path "/usr/local/bin")
 
-(if (window-system)
-    (set-frame-height (selected-frame) 57))
+(add-to-list 'default-frame-alist '(height . 57))
+
+;; Markdown
+(setq auto-mode-alist
+      (cons '("\\.md" . markdown-mode) auto-mode-alist))
 
 ;; Colors
 (color-theme-twilight)
 
 ;; Shell
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-(shell)
 
 ;; swank-clojure
 (add-to-list 'load-path "~/.emacs.d/vendor/swank-clojure/src/emacs")
@@ -44,3 +48,6 @@
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/initialize)
 (yas/load-directory "~/.emacs.d/vendor/yasnippet/snippets")
+
+(server-start)
+(shell)
