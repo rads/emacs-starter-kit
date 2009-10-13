@@ -1,8 +1,9 @@
 ;; Fonts
-(setq default-frame-alist '((font . "-unknown-Menlo-normal-normal-normal-*-13-*-*-*-m-0-*-*")))
+(setq default-frame-alist '((font . "-unknown-Consolas-normal-normal-normal-*-15-*-*-*-m-0-*-*")))
 
 ;; Settings
 (setq-default tab-width 2)
+(setq-default c-indent-level 2)
 (setq-default indent-tabs-mode nil)
 (prefer-coding-system 'utf-8)
 (setq-default ispell-program-name "aspell")
@@ -10,9 +11,13 @@
 
 (add-to-list 'default-frame-alist '(height . 57))
 
+(defun word-count nil "Count words in buffer" (interactive)
+  (shell-command-on-region (point-min) (point-max) "wc -w"))
+
 ;; Markdown
 (setq auto-mode-alist
       (cons '("\\.md" . markdown-mode) auto-mode-alist))
+(add-hook 'markdown-mode-hook 'longlines-mode)
 
 ;; Colors
 (color-theme-twilight)
