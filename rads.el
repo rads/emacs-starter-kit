@@ -27,11 +27,9 @@
 
 ;; swank-clojure
 (add-to-list 'load-path "~/.emacs.d/vendor/swank-clojure/src/emacs")
-
-(setq swank-clojure-jar-path "/usr/local/clojure/clojure.jar"
-      swank-clojure-extra-classpaths (list
-				      "~/.emacs.d/vendor/swank-clojure/src/main/clojure"
-				      "/usr/local/clojure-contrib/clojure-contrib.jar"))
+(clojure-slime-config "/Users/rads/.clojure")
+(setq swank-clojure-jar-path "~/.clojure/clojure.jar")
+(setq swank-clojure-extra-classpaths (cons "~/.emacs.d/vendor/swank-clojure/src/main/clojure" (directory-files "~/.clojure/" t ".jar$")))
 
 (require 'swank-clojure-autoload)
 
@@ -70,6 +68,21 @@
                                                           plain-tex-mode))
                      (let ((mark-even-if-inactive transient-mark-mode))
                        (indent-region (region-beginning) (region-end) nil))))))
+
+(defun rename-file-and-buffer (new-name)
+"Renames both current buffer and file it's visiting to NEW-NAME."
+(interactive "sNew name: ")
+(let ((name (buffer-name))
+      (filename (buffer-file-name)))
+  (if (not filename)
+      (message "Buffer '%s' is not visiting a file!" name)
+    (if (get-buffer new-name)
+        (message "A buffer named '%s' already exists!" new-name)
+      (progn
+        (rename-file name new-name 1)
+        (rename-buffer new-name)
+        (set-visited-file-name new-name)
+        (set-buffer-modified-p nil))))))
 
 (server-start)
 (shell)
