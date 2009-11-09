@@ -20,7 +20,12 @@
 (add-hook 'markdown-mode-hook 'longlines-mode)
 
 ;; Colors
-(color-theme-twilight)
+(add-to-list 'load-path "~/.emacs.d/vendor/color-theme")
+(require 'color-theme)
+(eval-after-load "color-theme"
+  '(progn
+     (color-theme-initialize)
+     (color-theme-arjen)))
 
 ;; Shell
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
