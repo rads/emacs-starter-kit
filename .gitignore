@@ -1,2 +1,4 @@
 *.elc
 .DS_Store
+backups/*
+places
